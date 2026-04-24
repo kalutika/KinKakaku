@@ -6,6 +6,8 @@ import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.serialization.kotlinx.json.*
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
 interface ApiService {
@@ -23,26 +25,49 @@ class ApiServiceImpl : ApiService {
     }
 
     override suspend fun getDataItems(): List<DataItem> {
-        // For demo purposes, using JSONPlaceholder API
-        // Replace with your actual API endpoint
-        return httpClient.get("https://jsonplaceholder.typicode.com/posts").body<List<PostResponse>>()
-            .map { post ->
-                DataItem(
-                    id = post.id,
-                    title = post.title,
-                    description = post.body,
-                    imageUrl = "https://picsum.photos/200/200?random=${post.id}",
-                    price = (post.id * 10.99),
-                    category = "Sample Category"
-                )
-            }
+        println("Gold API: Fetching data from vang.today...")
+        val response = httpClient.get("https://www.vang.today/api/prices")
+            .body<GoldPriceResponse>()
+
+        println("Gold API: Response received, items count: ${response.prices.size}")
+
+        return response.prices.entries.mapIndexed { index, (key, priceData) ->
+            DataItem(
+                id = index + 1,
+                title = priceData.name,
+                description = key,
+                imageUrl = null,
+                price = priceData.buy,
+                category = priceData.currency,
+                buyPrice = priceData.buy,
+                sellPrice = priceData.sell,
+                changeBuy = priceData.changeBuy,
+                changeSell = priceData.changeSell,
+                lastUpdate = "${response.date} ${response.time}"
+            )
+        }.also {
+            println("Gold API: Successfully mapped ${it.size} items")
+        }
     }
 }
 
-@kotlinx.serialization.Serializable
-private data class PostResponse(
-    val id: Int,
-    val title: String,
-    val body: String,
-    val userId: Int
+@Serializable
+data class GoldPriceResponse(
+    val success: Boolean,
+    val timestamp: Long,
+    val time: String,
+    val date: String,
+    val count: Int,
+    val prices: Map<String, PriceData>
 )
+
+@Serializable
+data class PriceData(
+    val name: String,
+    val buy: Double,
+    val sell: Double,
+    @SerialName("change_buy") val changeBuy: Double,
+    @SerialName("change_sell") val changeSell: Double,
+    val currency: String
+)
+
