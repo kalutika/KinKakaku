@@ -32,7 +32,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,6 +47,7 @@ import com.app.kinkakaku.shared.model.DataItem
 import com.app.kinkakaku.ui.viewmodel.DataViewModel
 import org.koin.androidx.compose.koinViewModel
 import java.util.Locale
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
@@ -55,7 +55,7 @@ fun DataGridScreen(
     onSettingsClick: () -> Unit,
     viewModel: DataViewModel = koinViewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
@@ -72,21 +72,19 @@ fun DataGridScreen(
                         titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                 )
-                        if (uiState.data.isNotEmpty()) {
-                    TableHeader()
-                }
+                                if (uiState.data.isNotEmpty()) TableHeader()
             }
         }
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
             when {
-                    uiState.isLoading && uiState.data.isEmpty() -> LoadingContent()
-                        uiState.error != null -> ErrorContent(error = uiState.error!!, onRetry = viewModel::retry)
-                    else -> PriceListContent(
-                        data = uiState.data,
-                        refreshing = uiState.isLoading,
-                        onRefresh = viewModel::retry
-                    )
+                                uiState.isLoading && uiState.data.isEmpty() -> LoadingContent()
+                                uiState.error != null -> ErrorContent(error = uiState.error!!, onRetry = viewModel::retry)
+                                else -> PriceListContent(
+                                    data = uiState.data,
+                                    refreshing = uiState.isLoading,
+                                    onRefresh = viewModel::retry
+                                )
             }
         }
     }
@@ -156,10 +154,16 @@ private fun PriceListContent(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize(),
-                contentPadding = PaddingValues(12.dp),
+            contentPadding = PaddingValues(12.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            items(data) { item -> PriceRowCard(item) }
+            items(
+                items = data,
+                key = { it.id },
+                contentType = { "price_row" }
+            ) { item ->
+                PriceRowCard(item)
+            }
         }
 
         PullRefreshIndicator(
@@ -250,19 +254,9 @@ private fun PriceRowCard(item: DataItem) {
                     }
                 }
 
-                PriceColumn(
-                    modifier = Modifier.width(priceWidth),
-                    value = item.buyPrice,
-                    change = item.changeBuy,
-                    currency = item.category,
-                )
+                PriceColumn(modifier = Modifier.width(priceWidth), value = item.buyPrice, change = item.changeBuy, currency = item.category)
 
-                PriceColumn(
-                    modifier = Modifier.width(priceWidth),
-                    value = item.sellPrice,
-                    change = item.changeSell,
-                    currency = item.category,
-                )
+                PriceColumn(modifier = Modifier.width(priceWidth), value = item.sellPrice, change = item.changeSell, currency = item.category)
             }
         }
     }
