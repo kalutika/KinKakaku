@@ -26,7 +26,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -56,6 +55,7 @@ fun DataGridScreen(
     viewModel: DataViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val updatedAt = uiState.data.firstOrNull()?.lastUpdate
 
     Scaffold(
         topBar = {
@@ -72,7 +72,18 @@ fun DataGridScreen(
                         titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                 )
-                                if (uiState.data.isNotEmpty()) TableHeader()
+                if (updatedAt != null) {
+                    Text(
+                        text = stringResource(R.string.updated_at, updatedAt),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 24.dp, vertical = 6.dp),
+                        textAlign = TextAlign.End,
+                        fontSize = 11.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                if (uiState.data.isNotEmpty()) TableHeader()
             }
         }
     ) { innerPadding ->
@@ -179,41 +190,32 @@ private fun TableHeader() {
     val leftWidth = 170.dp
     val priceWidth = 88.dp
 
-    Surface(
-        tonalElevation = 2.dp,
-        shadowElevation = 0.dp,
-        shape = MaterialTheme.shapes.medium,
+    Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 12.dp)
+            .padding(horizontal = 24.dp, vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 10.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = stringResource(R.string.table_header_product),
-                modifier = Modifier.width(leftWidth),
-                fontWeight = FontWeight.Bold,
-                fontSize = 12.sp
-            )
-            Text(
-                text = stringResource(R.string.table_header_buy),
-                modifier = Modifier.width(priceWidth),
-                textAlign = TextAlign.End,
-                fontWeight = FontWeight.Bold,
-                fontSize = 12.sp
-            )
-            Text(
-                text = stringResource(R.string.table_header_sell),
-                modifier = Modifier.width(priceWidth),
-                textAlign = TextAlign.End,
-                fontWeight = FontWeight.Bold,
-                fontSize = 12.sp
-            )
-        }
+        Text(
+            text = stringResource(R.string.table_header_product),
+            modifier = Modifier.width(leftWidth),
+            fontWeight = FontWeight.Bold,
+            fontSize = 12.sp
+        )
+        Text(
+            text = stringResource(R.string.table_header_buy),
+            modifier = Modifier.width(priceWidth),
+            textAlign = TextAlign.End,
+            fontWeight = FontWeight.Bold,
+            fontSize = 12.sp
+        )
+        Text(
+            text = stringResource(R.string.table_header_sell),
+            modifier = Modifier.width(priceWidth),
+            textAlign = TextAlign.End,
+            fontWeight = FontWeight.Bold,
+            fontSize = 12.sp
+        )
     }
 }
 
@@ -244,14 +246,6 @@ private fun PriceRowCard(item: DataItem) {
                         fontSize = 11.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-                    item.lastUpdate?.let {
-                        Spacer(modifier = Modifier.height(2.dp))
-                        Text(
-                            text = it,
-                            fontSize = 10.sp,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
                 }
 
                 PriceColumn(modifier = Modifier.width(priceWidth), value = item.buyPrice, change = item.changeBuy, currency = item.category)

@@ -15,5 +15,6 @@
     <string name="table_header_buy">Giá mua</string>
     <string name="table_header_sell">Giá bán</string>
     <string name="current_language">Ngôn ngữ hiện tại: %1$s</string>
+    <string name="updated_at">Cập nhật giá lúc: %1$s</string>
 </resources>
 

@@ -15,5 +15,6 @@
     <string name="table_header_buy">買値</string>
     <string name="table_header_sell">売値</string>
     <string name="current_language">現在の言語: %1$s</string>
+    <string name="updated_at">価格更新日時: %1$s</string>
 </resources>
 
