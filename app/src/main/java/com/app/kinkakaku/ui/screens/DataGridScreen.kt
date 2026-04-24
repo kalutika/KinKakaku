@@ -13,13 +13,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -75,9 +78,13 @@ fun DataGridScreen(
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
             when {
-                uiState.isLoading -> LoadingContent()
+                    uiState.isLoading && uiState.data.isEmpty() -> LoadingContent()
                 uiState.error != null -> ErrorContent(error = uiState.error!!, onRetry = viewModel::retry)
-                else -> PriceListContent(data = uiState.data)
+                    else -> PriceListContent(
+                        data = uiState.data,
+                        refreshing = uiState.isLoading,
+                        onRefresh = viewModel::retry
+                    )
             }
         }
     }
@@ -117,8 +124,13 @@ private fun ErrorContent(
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun PriceListContent(data: List<DataItem>) {
+private fun PriceListContent(
+    data: List<DataItem>,
+    refreshing: Boolean,
+    onRefresh: () -> Unit
+) {
     if (data.isEmpty()) {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -129,15 +141,30 @@ private fun PriceListContent(data: List<DataItem>) {
         return
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    val pullRefreshState = rememberPullRefreshState(
+        refreshing = refreshing,
+        onRefresh = onRefresh
+    )
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .pullRefresh(pullRefreshState)
+    ) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize(),
                 contentPadding = PaddingValues(12.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-        items(data) { item -> PriceRowCard(item) }
+            items(data) { item -> PriceRowCard(item) }
         }
+
+        PullRefreshIndicator(
+            refreshing = refreshing,
+            state = pullRefreshState,
+            modifier = Modifier.align(Alignment.TopCenter)
+        )
     }
 }
 
@@ -150,12 +177,14 @@ private fun TableHeader() {
         tonalElevation = 2.dp,
         shadowElevation = 0.dp,
         shape = MaterialTheme.shapes.medium,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 12.dp)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 10.dp),
+                .padding(horizontal = 12.dp, vertical = 10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
@@ -224,7 +253,6 @@ private fun PriceRowCard(item: DataItem) {
                     value = item.buyPrice,
                     change = item.changeBuy,
                     currency = item.category,
-                    changeColor = MaterialTheme.colorScheme.error
                 )
 
                 PriceColumn(
@@ -232,12 +260,8 @@ private fun PriceRowCard(item: DataItem) {
                     value = item.sellPrice,
                     change = item.changeSell,
                     currency = item.category,
-                    changeColor = MaterialTheme.colorScheme.primary
                 )
             }
-
-            Spacer(modifier = Modifier.height(10.dp))
-            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
         }
     }
 }
@@ -248,7 +272,6 @@ private fun PriceColumn(
     value: Double?,
     change: Double?,
     currency: String?,
-    changeColor: Color
 ) {
     Column(
         modifier = modifier,
@@ -261,15 +284,14 @@ private fun PriceColumn(
             textAlign = TextAlign.End
         )
         Spacer(modifier = Modifier.height(6.dp))
-        ChangeIndicator(change = change, currency = currency, tint = changeColor)
+        ChangeIndicator(change = change, currency = currency)
     }
 }
 
 @Composable
 private fun ChangeIndicator(
     change: Double?,
-    currency: String?,
-    tint: Color
+    currency: String?
 ) {
     when {
         change == null -> {
@@ -288,22 +310,22 @@ private fun ChangeIndicator(
         }
         change > 0 -> {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(text = "▲", color = tint, fontSize = 12.sp)
+                Text(text = "▲", color = Color.Green, fontSize = 12.sp)
                 Text(
                     text = formatChange(change, currency),
                     fontSize = 11.sp,
-                    color = tint,
+                    color = Color.DarkGray,
                     fontWeight = FontWeight.SemiBold
                 )
             }
         }
         else -> {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(text = "▼", color = tint, fontSize = 12.sp)
+                Text(text = "▼", color = Color.Red, fontSize = 12.sp)
                 Text(
                     text = formatChange(change, currency),
                     fontSize = 11.sp,
-                    color = tint,
+                    color = Color.DarkGray,
                     fontWeight = FontWeight.SemiBold
                 )
             }
