@@ -1,0 +1,21 @@
+# OS files
+.DS_Store
+
+# Local SDK path
+local.properties
+
+# Gradle and Kotlin local caches
+.gradle/
+.kotlin/
+
+# Build outputs
+build/
+**/build/
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+captures/
+.externalNativeBuild/
+.cxx/
+
