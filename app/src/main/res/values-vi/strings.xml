@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">金 Kakaku</string>
+    <string name="settings_title">Cài đặt</string>
+    <string name="settings_language_section_title">Ngôn ngữ</string>
+    <string name="settings_language_section_desc">Chọn ngôn ngữ cho ứng dụng</string>
+    <string name="language_vietnamese">Tiếng Việt</string>
+    <string name="language_english">English</string>
+    <string name="language_japanese">日本語</string>
+    <string name="back">Quay lại</string>
+    <string name="loading_prices">Đang tải giá…</string>
+    <string name="error_prefix">Lỗi: </string>
+    <string name="retry">Thử lại</string>
+    <string name="no_data_available">Không có dữ liệu</string>
+    <string name="table_header_product">Sản phẩm</string>
+    <string name="table_header_buy">Giá mua</string>
+    <string name="table_header_sell">Giá bán</string>
+    <string name="current_language">Ngôn ngữ hiện tại: %1$s</string>
+</resources>
+

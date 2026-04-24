@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">金 Kakaku</string>
+    <string name="settings_title">設定</string>
+    <string name="settings_language_section_title">言語</string>
+    <string name="settings_language_section_desc">アプリの言語を選択してください</string>
+    <string name="language_vietnamese">ベトナム語</string>
+    <string name="language_english">英語</string>
+    <string name="language_japanese">日本語</string>
+    <string name="back">戻る</string>
+    <string name="loading_prices">価格を読み込み中…</string>
+    <string name="error_prefix">エラー: </string>
+    <string name="retry">再試行</string>
+    <string name="no_data_available">データがありません</string>
+    <string name="table_header_product">商品</string>
+    <string name="table_header_buy">買値</string>
+    <string name="table_header_sell">売値</string>
+    <string name="current_language">現在の言語: %1$s</string>
+</resources>
+

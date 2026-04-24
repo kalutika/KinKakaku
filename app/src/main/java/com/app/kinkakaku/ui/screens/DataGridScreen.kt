@@ -42,6 +42,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
+import com.app.kinkakaku.R
 import com.app.kinkakaku.shared.model.DataItem
 import com.app.kinkakaku.ui.viewmodel.DataViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -59,7 +61,7 @@ fun DataGridScreen(
         topBar = {
             Column {
                 TopAppBar(
-                    title = { Text(text = "金 Kakaku", fontWeight = FontWeight.Bold) },
+                    title = { Text(text = stringResource(R.string.app_name), fontWeight = FontWeight.Bold) },
                     actions = {
                         IconButton(onClick = onSettingsClick) {
                             Icon(Icons.Default.Settings, contentDescription = "Settings")
@@ -70,7 +72,7 @@ fun DataGridScreen(
                         titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                 )
-                if (uiState.data.isNotEmpty()) {
+                        if (uiState.data.isNotEmpty()) {
                     TableHeader()
                 }
             }
@@ -79,7 +81,7 @@ fun DataGridScreen(
         Box(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
             when {
                     uiState.isLoading && uiState.data.isEmpty() -> LoadingContent()
-                uiState.error != null -> ErrorContent(error = uiState.error!!, onRetry = viewModel::retry)
+                        uiState.error != null -> ErrorContent(error = uiState.error!!, onRetry = viewModel::retry)
                     else -> PriceListContent(
                         data = uiState.data,
                         refreshing = uiState.isLoading,
@@ -99,7 +101,7 @@ private fun LoadingContent() {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             CircularProgressIndicator()
             Spacer(modifier = Modifier.height(16.dp))
-            Text("Loading prices...")
+            Text(stringResource(R.string.loading_prices))
         }
     }
 }
@@ -115,11 +117,11 @@ private fun ErrorContent(
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text = "Error: $error",
+                text = stringResource(R.string.error_prefix) + error,
                 color = MaterialTheme.colorScheme.error,
                 modifier = Modifier.padding(16.dp)
             )
-            Button(onClick = onRetry) { Text("Retry") }
+            Button(onClick = onRetry) { Text(stringResource(R.string.retry)) }
         }
     }
 }
@@ -136,7 +138,7 @@ private fun PriceListContent(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            Text("No data available")
+            Text(stringResource(R.string.no_data_available))
         }
         return
     }
@@ -188,20 +190,20 @@ private fun TableHeader() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Sản phẩm",
+                text = stringResource(R.string.table_header_product),
                 modifier = Modifier.width(leftWidth),
                 fontWeight = FontWeight.Bold,
                 fontSize = 12.sp
             )
             Text(
-                text = "Giá mua",
+                text = stringResource(R.string.table_header_buy),
                 modifier = Modifier.width(priceWidth),
                 textAlign = TextAlign.End,
                 fontWeight = FontWeight.Bold,
                 fontSize = 12.sp
             )
             Text(
-                text = "Giá bán",
+                text = stringResource(R.string.table_header_sell),
                 modifier = Modifier.width(priceWidth),
                 textAlign = TextAlign.End,
                 fontWeight = FontWeight.Bold,
