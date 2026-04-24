@@ -1,5 +1,7 @@
 package com.app.kinkakaku.ui.screens
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,9 +12,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
@@ -26,6 +30,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -48,6 +53,11 @@ import org.koin.androidx.compose.koinViewModel
 import java.util.Locale
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
+private val GoldAccent = Color(0xFFC8A24A)
+private val GoldAccentSoft = Color(0xFFF3E5B5)
+private val PositiveChangeColor = Color(0xFF5E8466)
+private val NegativeChangeColor = Color(0xFF9A5D5D)
+
 @OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
 fun DataGridScreen(
@@ -58,18 +68,29 @@ fun DataGridScreen(
     val updatedAt = uiState.data.firstOrNull()?.lastUpdate
 
     Scaffold(
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
-            Column {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.surface)
+            ) {
                 TopAppBar(
-                    title = { Text(text = stringResource(R.string.app_name), fontWeight = FontWeight.Bold) },
+                    title = {
+                        Text(
+                            text = stringResource(R.string.app_name),
+                            fontWeight = FontWeight.Bold
+                        )
+                    },
                     actions = {
                         IconButton(onClick = onSettingsClick) {
                             Icon(Icons.Default.Settings, contentDescription = "Settings")
                         }
                     },
                     colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                        containerColor = MaterialTheme.colorScheme.surface,
+                        titleContentColor = MaterialTheme.colorScheme.primary,
+                        actionIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 )
                 if (updatedAt != null) {
@@ -84,6 +105,11 @@ fun DataGridScreen(
                     )
                 }
                 if (uiState.data.isNotEmpty()) TableHeader()
+                if (uiState.data.isNotEmpty()) {
+                    HorizontalDivider(
+                        color = MaterialTheme.colorScheme.outline.copy(alpha = 0.35f)
+                    )
+                }
             }
         }
     ) { innerPadding ->
@@ -108,9 +134,12 @@ private fun LoadingContent() {
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            CircularProgressIndicator()
+            CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
             Spacer(modifier = Modifier.height(16.dp))
-            Text(stringResource(R.string.loading_prices))
+            Text(
+                text = stringResource(R.string.loading_prices),
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         }
     }
 }
@@ -187,50 +216,68 @@ private fun PriceListContent(
 
 @Composable
 private fun TableHeader() {
-    val leftWidth = 170.dp
-    val priceWidth = 88.dp
+    val leftWidth = 120.dp
+    val priceWidth = 94.dp
+    val priceGap = 12.dp
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 24.dp, vertical = 10.dp),
+            .padding(horizontal = 20.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = stringResource(R.string.table_header_product),
             modifier = Modifier.width(leftWidth),
             fontWeight = FontWeight.Bold,
-            fontSize = 12.sp
+            fontSize = 12.sp,
+            color = MaterialTheme.colorScheme.primary
         )
+        Spacer(modifier = Modifier.width(priceGap))
         Text(
             text = stringResource(R.string.table_header_buy),
             modifier = Modifier.width(priceWidth),
             textAlign = TextAlign.End,
             fontWeight = FontWeight.Bold,
-            fontSize = 12.sp
+            fontSize = 12.sp,
+            color = MaterialTheme.colorScheme.primary
         )
+        Spacer(modifier = Modifier.width(priceGap))
         Text(
             text = stringResource(R.string.table_header_sell),
             modifier = Modifier.width(priceWidth),
             textAlign = TextAlign.End,
             fontWeight = FontWeight.Bold,
-            fontSize = 12.sp
+            fontSize = 12.sp,
+            color = MaterialTheme.colorScheme.primary
         )
     }
 }
 
 @Composable
 private fun PriceRowCard(item: DataItem) {
-    val leftWidth = 170.dp
-    val priceWidth = 88.dp
+    val leftWidth = 120.dp
+    val priceWidth = 94.dp
+    val priceGap = 12.dp
 
     Card(
         modifier = Modifier.fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        shape = RoundedCornerShape(18.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.35f)),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
-        Column(modifier = Modifier.fillMaxWidth().padding(12.dp)) {
+        Row(modifier = Modifier.fillMaxWidth()) {
+            Box(
+                modifier = Modifier
+                    .width(4.dp)
+                    .fillMaxHeight()
+                    .background(GoldAccent)
+            )
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 14.dp, vertical = 14.dp),
                 verticalAlignment = Alignment.Top
             ) {
                 Column(modifier = Modifier.width(leftWidth)) {
@@ -238,6 +285,7 @@ private fun PriceRowCard(item: DataItem) {
                         text = item.title,
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
+                        color = MaterialTheme.colorScheme.onSurface,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -248,9 +296,23 @@ private fun PriceRowCard(item: DataItem) {
                     )
                 }
 
-                PriceColumn(modifier = Modifier.width(priceWidth), value = item.buyPrice, change = item.changeBuy, currency = item.category)
+                Spacer(modifier = Modifier.width(priceGap))
 
-                PriceColumn(modifier = Modifier.width(priceWidth), value = item.sellPrice, change = item.changeSell, currency = item.category)
+                PriceColumn(
+                    modifier = Modifier.width(priceWidth),
+                    value = item.buyPrice,
+                    change = item.changeBuy,
+                    currency = item.category
+                )
+
+                Spacer(modifier = Modifier.width(priceGap))
+
+                PriceColumn(
+                    modifier = Modifier.width(priceWidth),
+                    value = item.sellPrice,
+                    change = item.changeSell,
+                    currency = item.category
+                )
             }
         }
     }
@@ -271,7 +333,8 @@ private fun PriceColumn(
             text = formatMoney(value, currency),
             fontWeight = FontWeight.Bold,
             fontSize = 14.sp,
-            textAlign = TextAlign.End
+            textAlign = TextAlign.End,
+            color = MaterialTheme.colorScheme.onSurface
         )
         Spacer(modifier = Modifier.height(6.dp))
         ChangeIndicator(change = change, currency = currency)
@@ -300,22 +363,22 @@ private fun ChangeIndicator(
         }
         change > 0 -> {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(text = "▲", color = Color.Green, fontSize = 12.sp)
+                Text(text = "▲", color = PositiveChangeColor, fontSize = 12.sp)
                 Text(
                     text = formatChange(change, currency),
                     fontSize = 11.sp,
-                    color = Color.DarkGray,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontWeight = FontWeight.SemiBold
                 )
             }
         }
         else -> {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(text = "▼", color = Color.Red, fontSize = 12.sp)
+                Text(text = "▼", color = NegativeChangeColor, fontSize = 12.sp)
                 Text(
                     text = formatChange(change, currency),
                     fontSize = 11.sp,
-                    color = Color.DarkGray,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontWeight = FontWeight.SemiBold
                 )
             }
