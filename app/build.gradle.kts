@@ -62,7 +62,7 @@ dependencies {
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)
-    implementation("androidx.compose.material:material")
+    implementation(libs.compose.material)
     implementation(libs.activity.compose)
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.lifecycle.runtime.compose)
@@ -77,6 +77,9 @@ dependencies {
 
     // Image loading
     implementation(libs.coil.compose)
+
+    // Google Mobile Ads
+    implementation("com.google.android.gms:play-services-ads:23.6.0")
 
     // Testing
     testImplementation(libs.junit)

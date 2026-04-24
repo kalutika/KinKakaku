@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -47,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
 import ministudio.app.kinkakaku.R
+import ministudio.app.kinkakaku.ui.ads.AdMobBanner
 import ministudio.app.kinkakaku.shared.model.DataItem
 import ministudio.app.kinkakaku.ui.viewmodel.DataViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -54,7 +56,6 @@ import java.util.Locale
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 private val GoldAccent = Color(0xFFC8A24A)
-private val GoldAccentSoft = Color(0xFFF3E5B5)
 private val PositiveChangeColor = Color(0xFF5E8466)
 private val NegativeChangeColor = Color(0xFF9A5D5D)
 
@@ -69,6 +70,9 @@ fun DataGridScreen(
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
+        bottomBar = {
+            AdMobBanner(modifier = Modifier.navigationBarsPadding())
+        },
         topBar = {
             Column(
                 modifier = Modifier
@@ -115,13 +119,13 @@ fun DataGridScreen(
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
             when {
-                                uiState.isLoading && uiState.data.isEmpty() -> LoadingContent()
-                                uiState.error != null -> ErrorContent(error = uiState.error!!, onRetry = viewModel::retry)
-                                else -> PriceListContent(
-                                    data = uiState.data,
-                                    refreshing = uiState.isLoading,
-                                    onRefresh = viewModel::retry
-                                )
+                uiState.isLoading && uiState.data.isEmpty() -> LoadingContent()
+                uiState.error != null -> ErrorContent(error = uiState.error!!, onRetry = viewModel::retry)
+                else -> PriceListContent(
+                    data = uiState.data,
+                    refreshing = uiState.isLoading,
+                    onRefresh = viewModel::retry
+                )
             }
         }
     }
