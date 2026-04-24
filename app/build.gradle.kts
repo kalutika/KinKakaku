@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.app.kinkakaku"
+    namespace = "ministudio.app.kinkakaku"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.app.kinkakaku"
+        applicationId = "ministudio.app.kinkakaku"
         minSdk = 29
         targetSdk = 35
         versionCode = 1

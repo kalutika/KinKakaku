@@ -41,7 +41,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.app.kinkakaku.shared"
+    namespace = "ministudio.app.kinkakaku.shared"
     compileSdk = 35
 
     defaultConfig {

@@ -274,8 +274,8 @@ Reference in `AndroidManifest.xml`:
 Add to `proguard-rules.pro`:
 ```proguard
 # Keep data models for serialization
--keep class com.app.kinkakaku.shared.network.** { *; }
--keep class com.app.kinkakaku.shared.model.** { *; }
+-keep class ministudio.app.kinkakaku.shared.network.** { *; }
+-keep class ministudio.app.kinkakaku.shared.model.** { *; }
 
 # Keep Kotlinx Serialization
 -keepattributes *Annotation*, InnerClasses
