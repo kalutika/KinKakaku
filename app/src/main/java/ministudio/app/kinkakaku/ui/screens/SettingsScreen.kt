@@ -128,16 +128,17 @@ fun SettingsScreen(
                 }
             }
 
-            RemoveAdsCard(
-                isPremium = billingUiState.isPremium,
-                isReady = billingUiState.isReady,
-                isLoading = billingUiState.isLoading,
-                isPurchasing = billingUiState.isPurchasing,
-                productAvailable = billingUiState.productAvailable,
-                error = billingUiState.error,
-                onBuyClick = { BillingManager.buyRemoveAds(context) },
-                onRestoreClick = { BillingManager.restorePurchases() }
-            )
+            // Temporarily hide the purchase option until we have a better strategy for handling different purchase states in the UI
+//            RemoveAdsCard(
+//                isPremium = billingUiState.isPremium,
+//                isReady = billingUiState.isReady,
+//                isLoading = billingUiState.isLoading,
+//                isPurchasing = billingUiState.isPurchasing,
+//                productAvailable = billingUiState.productAvailable,
+//                error = billingUiState.error,
+//                onBuyClick = { BillingManager.buyRemoveAds(context) },
+//                onRestoreClick = { BillingManager.restorePurchases() }
+//            )
         }
     }
 }
