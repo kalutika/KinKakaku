@@ -17,5 +17,14 @@
     <string name="current_language">Ngôn ngữ hiện tại: %1$s</string>
     <string name="updated_at">Cập nhật giá lúc: %1$s</string>
     <string name="press_back_again_to_exit">Nhấn quay lại lần nữa để thoát</string>
+    <string name="settings_remove_ads_title">Tắt quảng cáo</string>
+    <string name="settings_remove_ads_desc">Mua một lần để gỡ banner quảng cáo khỏi ứng dụng.</string>
+    <string name="remove_ads_status_active">Đã tắt quảng cáo</string>
+    <string name="remove_ads_status_free">Quảng cáo đang bật</string>
+    <string name="buy_remove_ads">Tắt quảng cáo</string>
+    <string name="restore_purchase">Khôi phục mua hàng</string>
+    <string name="purchase_processing">Đang xử lý…</string>
+    <string name="purchase_loading">Đang kết nối với Google Play…</string>
+    <string name="remove_ads_unavailable">Chức năng tắt quảng cáo hiện không khả dụng.</string>
 </resources>
 

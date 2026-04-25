@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -33,6 +34,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import ministudio.app.kinkakaku.billing.BillingManager
 import ministudio.app.kinkakaku.R
 import ministudio.app.kinkakaku.localization.LanguageManager
 
@@ -47,6 +50,7 @@ fun SettingsScreen(
     onBackClick: () -> Unit
 ) {
     val context = LocalContext.current
+    val billingUiState by BillingManager.uiState.collectAsStateWithLifecycle()
     val options = remember {
         listOf(
             LanguageOption(LanguageManager.LANGUAGE_ENGLISH, R.string.language_english),
@@ -102,15 +106,14 @@ fun SettingsScreen(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
-            val currentLabel = options.firstOrNull { it.tag == selectedTag }?.let {
-                stringResource(it.labelRes)
-            } ?: stringResource(R.string.language_english)
-
-            Text(
-                text = stringResource(R.string.current_language, currentLabel),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+//            val currentLabel = options.firstOrNull { it.tag == selectedTag }?.let {
+//                stringResource(it.labelRes)
+//            } ?: stringResource(R.string.language_english)
+//            Text(
+//                text = stringResource(R.string.current_language, currentLabel),
+//                style = MaterialTheme.typography.bodyMedium,
+//                color = MaterialTheme.colorScheme.onSurfaceVariant
+//            )
 
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 options.forEach { option ->
@@ -124,6 +127,17 @@ fun SettingsScreen(
                     )
                 }
             }
+
+            RemoveAdsCard(
+                isPremium = billingUiState.isPremium,
+                isReady = billingUiState.isReady,
+                isLoading = billingUiState.isLoading,
+                isPurchasing = billingUiState.isPurchasing,
+                productAvailable = billingUiState.productAvailable,
+                error = billingUiState.error,
+                onBuyClick = { BillingManager.buyRemoveAds(context) },
+                onRestoreClick = { BillingManager.restorePurchases() }
+            )
         }
     }
 }
@@ -149,7 +163,7 @@ private fun LanguageOptionCard(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(horizontal = 16.dp, vertical = 10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             RadioButton(
@@ -164,3 +178,100 @@ private fun LanguageOptionCard(
         }
     }
 }
+
+@Composable
+private fun RemoveAdsCard(
+    isPremium: Boolean,
+    isReady: Boolean,
+    isLoading: Boolean,
+    isPurchasing: Boolean,
+    productAvailable: Boolean,
+    error: String?,
+    onBuyClick: () -> Unit,
+    onRestoreClick: () -> Unit
+) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Text(
+                text = stringResource(R.string.settings_remove_ads_title),
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold
+            )
+
+            Text(
+                text = stringResource(R.string.settings_remove_ads_desc),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+
+            Text(
+                text = if (isPremium) {
+                    stringResource(R.string.remove_ads_status_active)
+                } else {
+                    stringResource(R.string.remove_ads_status_free)
+                },
+                fontWeight = FontWeight.SemiBold,
+                color = if (isPremium) {
+                    MaterialTheme.colorScheme.primary
+                } else {
+                    MaterialTheme.colorScheme.onSurfaceVariant
+                }
+            )
+
+            if (error != null) {
+                Text(
+                    text = error,
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = onBuyClick,
+                    enabled = isReady && productAvailable && !isPremium && !isPurchasing
+                ) {
+                    Text(
+                        text = if (isPurchasing) {
+                            stringResource(R.string.purchase_processing)
+                        } else {
+                            stringResource(R.string.buy_remove_ads)
+                        }
+                    )
+                }
+
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = onRestoreClick,
+                    enabled = isReady && !isLoading && !isPurchasing
+                ) {
+                    Text(stringResource(R.string.restore_purchase))
+                }
+            }
+
+            if (!isReady && isLoading) {
+                Text(
+                    text = stringResource(R.string.purchase_loading),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            } else if (!productAvailable && !isPremium) {
+                Text(
+                    text = stringResource(R.string.remove_ads_unavailable),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
+    }
+}
+

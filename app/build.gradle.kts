@@ -78,8 +78,11 @@ dependencies {
     // Image loading
     implementation(libs.coil.compose)
 
+    // Google Play Billing
+    implementation(libs.play.billing)
+
     // Google Mobile Ads
-    implementation("com.google.android.gms:play-services-ads:23.6.0")
+    implementation(libs.play.services.ads)
 
     // Testing
     testImplementation(libs.junit)

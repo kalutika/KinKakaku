@@ -10,17 +10,34 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import ministudio.app.kinkakaku.di.appModule
 import ministudio.app.kinkakaku.localization.LanguageManager
 import ministudio.app.kinkakaku.navigation.KinKakakuNavigation
+import ministudio.app.kinkakaku.shared.di.sharedModule
 import ministudio.app.kinkakaku.ui.theme.KinKakakuTheme
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 class MainActivity : AppCompatActivity() {
+
+//    companion object {
+//        private var koinStarted = false
+//    }
 
     private var lastBackPressedAt = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         LanguageManager.applySavedLanguage(this)
         super.onCreate(savedInstanceState)
+
+//        if (!koinStarted) {
+//            koinStarted = true
+//            startKoin {
+//                androidContext(applicationContext)
+//                modules(sharedModule, appModule)
+//            }
+//        }
+
         enableEdgeToEdge()
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {

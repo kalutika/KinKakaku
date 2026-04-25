@@ -1,6 +1,6 @@
 [versions]
 agp = "8.13.2"
-kotlin = "2.0.21"
+kotlin = "2.2.0"
 coreKtx = "1.18.0"
 junit = "4.13.2"
 junitVersion = "1.3.0"
@@ -20,6 +20,8 @@ koin = "4.0.0"
 multiplatform = "2.0.21"
 coil = "2.7.0"
 kotlin-test = "2.0.21"
+billing = "8.3.0"
+google-ads = "23.6.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -70,6 +72,13 @@ koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin"
 
 # Image loading
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+
+# Google Play Billing
+play-billing = { group = "com.android.billingclient", name = "billing-ktx", version.ref = "billing" }
+
+# Google Mobile Ads
+play-services-ads = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "google-ads" }
+
 
 
 # Testing

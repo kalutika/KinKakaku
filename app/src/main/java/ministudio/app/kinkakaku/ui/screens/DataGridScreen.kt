@@ -37,6 +37,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,7 +48,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalContext
 import ministudio.app.kinkakaku.R
+import ministudio.app.kinkakaku.billing.BillingManager
 import ministudio.app.kinkakaku.ui.ads.AdMobBanner
 import ministudio.app.kinkakaku.shared.model.DataItem
 import ministudio.app.kinkakaku.ui.viewmodel.DataViewModel
@@ -65,13 +68,21 @@ fun DataGridScreen(
     onSettingsClick: () -> Unit,
     viewModel: DataViewModel = koinViewModel()
 ) {
+    val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val billingUiState by BillingManager.uiState.collectAsStateWithLifecycle()
     val updatedAt = uiState.data.firstOrNull()?.lastUpdate
+
+    LaunchedEffect(context) {
+        BillingManager.initialize(context)
+    }
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         bottomBar = {
-            AdMobBanner(modifier = Modifier.navigationBarsPadding())
+            if (!billingUiState.isPremium) {
+                AdMobBanner(modifier = Modifier.navigationBarsPadding())
+            }
         },
         topBar = {
             Column(

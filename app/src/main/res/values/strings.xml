@@ -17,4 +17,13 @@
     <string name="current_language">Current language: %1$s</string>
     <string name="updated_at">Updated at: %1$s</string>
     <string name="press_back_again_to_exit">Press back again to exit</string>
+    <string name="settings_remove_ads_title">Remove Ads</string>
+    <string name="settings_remove_ads_desc">Buy once to remove banner ads from the app.</string>
+    <string name="remove_ads_status_active">Ads removed</string>
+    <string name="remove_ads_status_free">Ads enabled</string>
+    <string name="buy_remove_ads">Remove ads</string>
+    <string name="restore_purchase">Restore purchase</string>
+    <string name="purchase_processing">Processing…</string>
+    <string name="purchase_loading">Connecting to Google Play…</string>
+    <string name="remove_ads_unavailable">Remove Ads is not available right now.</string>
 </resources>
