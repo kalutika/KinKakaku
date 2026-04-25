@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">金 Kakaku</string>
+    <string name="app_name">金の価格</string>
     <string name="settings_title">設定</string>
     <string name="settings_language_section_title">言語</string>
     <string name="settings_language_section_desc">アプリの言語を選択してください</string>
