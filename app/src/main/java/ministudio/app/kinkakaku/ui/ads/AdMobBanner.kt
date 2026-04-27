@@ -20,7 +20,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 
-private const val TEST_BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/6300978111"
+private const val GOLD_PRICE_BANNER_AD_UNIT_ID = "ca-app-pub-3596821537526365/5892006996"
 
 @Composable
 fun AdMobBanner(
@@ -29,7 +29,7 @@ fun AdMobBanner(
     val context = LocalContext.current
     val adView = remember(context) {
         AdView(context).apply {
-            adUnitId = TEST_BANNER_AD_UNIT_ID
+            adUnitId = GOLD_PRICE_BANNER_AD_UNIT_ID
             setAdSize(AdSize.BANNER)
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,

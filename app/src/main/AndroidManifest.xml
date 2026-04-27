@@ -15,7 +15,7 @@
         android:theme="@style/Theme.KinKakaku">
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713" />
+            android:value="ca-app-pub-3596821537526365~4951205275" />
 
         <activity
             android:name=".MainActivity"
