@@ -50,7 +50,7 @@ fun SettingsScreen(
     onBackClick: () -> Unit
 ) {
     val context = LocalContext.current
-    val billingUiState by BillingManager.uiState.collectAsStateWithLifecycle()
+//    val billingUiState by BillingManager.uiState.collectAsStateWithLifecycle()
     val options = remember {
         listOf(
             LanguageOption(LanguageManager.LANGUAGE_ENGLISH, R.string.language_english),
@@ -105,15 +105,6 @@ fun SettingsScreen(
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
-
-//            val currentLabel = options.firstOrNull { it.tag == selectedTag }?.let {
-//                stringResource(it.labelRes)
-//            } ?: stringResource(R.string.language_english)
-//            Text(
-//                text = stringResource(R.string.current_language, currentLabel),
-//                style = MaterialTheme.typography.bodyMedium,
-//                color = MaterialTheme.colorScheme.onSurfaceVariant
-//            )
 
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 options.forEach { option ->
@@ -180,6 +171,7 @@ private fun LanguageOptionCard(
     }
 }
 
+// Keep this composable for future purchase support in Settings.
 @Composable
 private fun RemoveAdsCard(
     isPremium: Boolean,
