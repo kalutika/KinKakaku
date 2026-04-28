@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package ministudio.app.kinkakaku.ui.screens
 
 import androidx.compose.foundation.clickable
@@ -34,8 +36,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import ministudio.app.kinkakaku.billing.BillingManager
 import ministudio.app.kinkakaku.R
 import ministudio.app.kinkakaku.localization.LanguageManager
 
@@ -119,6 +119,15 @@ fun SettingsScreen(
                 }
             }
 
+            Text(
+                text = stringResource(
+                    R.string.settings_app_version,
+                    ministudio.app.kinkakaku.BuildConfig.VERSION_NAME
+                ),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+
             // Temporarily hide the purchase option until we have a better strategy for handling different purchase states in the UI
 //            RemoveAdsCard(
 //                isPremium = billingUiState.isPremium,
@@ -172,8 +181,9 @@ private fun LanguageOptionCard(
 }
 
 // Keep this composable for future purchase support in Settings.
+@Suppress("unused")
 @Composable
-private fun RemoveAdsCard(
+fun RemoveAdsCard(
     isPremium: Boolean,
     isReady: Boolean,
     isLoading: Boolean,

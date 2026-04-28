@@ -15,6 +15,7 @@
     <string name="table_header_buy">Giá mua</string>
     <string name="table_header_sell">Giá bán</string>
     <string name="current_language">Ngôn ngữ hiện tại: %1$s</string>
+    <string name="settings_app_version">Phiên bản ứng dụng: v%1$s</string>
     <string name="updated_at">Cập nhật giá lúc: %1$s</string>
     <string name="press_back_again_to_exit">Nhấn quay lại lần nữa để thoát</string>
     <string name="settings_remove_ads_title">Tắt quảng cáo</string>

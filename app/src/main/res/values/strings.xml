@@ -15,6 +15,7 @@
     <string name="table_header_buy">Buy Price</string>
     <string name="table_header_sell">Sell Price</string>
     <string name="current_language">Current language: %1$s</string>
+    <string name="settings_app_version">App version: v%1$s</string>
     <string name="updated_at">Updated at: %1$s</string>
     <string name="press_back_again_to_exit">Press back again to exit</string>
     <string name="settings_remove_ads_title">Remove Ads</string>

@@ -15,6 +15,7 @@
     <string name="table_header_buy">買値</string>
     <string name="table_header_sell">売値</string>
     <string name="current_language">現在の言語: %1$s</string>
+    <string name="settings_app_version">アプリのバージョン: v%1$s</string>
     <string name="updated_at">価格更新日時: %1$s</string>
     <string name="press_back_again_to_exit">もう一度戻るボタンを押すと終了します</string>
     <string name="settings_remove_ads_title">広告を削除</string>
