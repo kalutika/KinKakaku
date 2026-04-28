@@ -36,6 +36,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import ministudio.app.kinkakaku.BuildConfig
 import ministudio.app.kinkakaku.R
 import ministudio.app.kinkakaku.localization.LanguageManager
 
@@ -122,7 +123,7 @@ fun SettingsScreen(
             Text(
                 text = stringResource(
                     R.string.settings_app_version,
-                    ministudio.app.kinkakaku.BuildConfig.VERSION_NAME
+                    BuildConfig.VERSION_NAME
                 ),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
