@@ -120,13 +120,17 @@ fun SettingsScreen(
                 }
             }
 
+            Spacer(modifier = Modifier.weight(1f))
+
             Text(
                 text = stringResource(
                     R.string.settings_app_version,
                     BuildConfig.VERSION_NAME
                 ),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = androidx.compose.ui.text.style.TextAlign.Center
             )
 
             // Temporarily hide the purchase option until we have a better strategy for handling different purchase states in the UI

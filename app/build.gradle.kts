@@ -39,7 +39,7 @@ android {
     }
     buildFeatures {
         compose = true
-        buildConfig = true
+        buildConfig = false
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.8"
@@ -49,6 +49,30 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+}
+
+val generateBuildConfig by tasks.registering {
+    val outputDir = file("src/main/java/ministudio/app/kinkakaku")
+    val outputFile = File(outputDir, "BuildConfig.kt")
+
+    outputs.file(outputFile)
+
+    doLast {
+        outputDir.mkdirs()
+        outputFile.writeText("""
+            package ministudio.app.kinkakaku
+            
+            object BuildConfig {
+                const val VERSION_NAME: String = "${android.defaultConfig.versionName}"
+                const val VERSION_CODE: Int = ${android.defaultConfig.versionCode}
+            }
+            
+        """.trimIndent())
+    }
+}
+
+tasks.named("preBuild") {
+    dependsOn(generateBuildConfig)
 }
 
 dependencies {
