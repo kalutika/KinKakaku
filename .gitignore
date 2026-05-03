@@ -19,3 +19,6 @@ captures/
 .externalNativeBuild/
 .cxx/
 
+app/src/main/java/ministudio/app/kinkakaku/BuildConfig.kt
+app/release/
+.idea/caches/deviceStreaming.xml

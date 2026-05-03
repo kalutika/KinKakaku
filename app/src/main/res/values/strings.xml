@@ -27,4 +27,5 @@
     <string name="purchase_processing">Processing…</string>
     <string name="purchase_loading">Connecting to Google Play…</string>
     <string name="remove_ads_unavailable">Remove Ads is not available right now.</string>
+    <string name="disclaimer">Note: Gold prices may change at any time.\nFor reference only — verify before trading.</string>
 </resources>

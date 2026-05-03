@@ -27,5 +27,6 @@
     <string name="purchase_processing">処理中…</string>
     <string name="purchase_loading">Google Play に接続中…</string>
     <string name="remove_ads_unavailable">広告削除機能は現在利用できません。</string>
+    <string name="disclaimer">注意：金価格は随時変動する場合があります\n参考情報としてご利用ください。</string>
 </resources>
 

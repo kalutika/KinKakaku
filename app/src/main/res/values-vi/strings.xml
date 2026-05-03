@@ -27,5 +27,6 @@
     <string name="purchase_processing">Đang xử lý…</string>
     <string name="purchase_loading">Đang kết nối với Google Play…</string>
     <string name="remove_ads_unavailable">Chức năng tắt quảng cáo hiện không khả dụng.</string>
+    <string name="disclaimer">Lưu ý: Giá vàng có thể thay đổi liên tục.\nChỉ mang tính tham khảo — nên kiểm tra trước khi giao dịch.</string>
 </resources>
 
