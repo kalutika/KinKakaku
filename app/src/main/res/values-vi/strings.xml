@@ -17,6 +17,8 @@
     <string name="current_language">Ngôn ngữ hiện tại: %1$s</string>
     <string name="settings_app_version">Phiên bản ứng dụng: v%1$s</string>
     <string name="updated_at">Cập nhật giá lúc: %1$s</string>
+    <string name="disclaimer_info_icon">Xem lưu ý</string>
+    <string name="disclaimer_dialog_ok">Đóng</string>
     <string name="press_back_again_to_exit">Nhấn quay lại lần nữa để thoát</string>
     <string name="settings_remove_ads_title">Tắt quảng cáo</string>
     <string name="settings_remove_ads_desc">Mua một lần để gỡ banner quảng cáo khỏi ứng dụng.</string>
@@ -27,6 +29,5 @@
     <string name="purchase_processing">Đang xử lý…</string>
     <string name="purchase_loading">Đang kết nối với Google Play…</string>
     <string name="remove_ads_unavailable">Chức năng tắt quảng cáo hiện không khả dụng.</string>
-    <string name="disclaimer">Lưu ý: Giá vàng có thể thay đổi liên tục.\nChỉ mang tính tham khảo — nên kiểm tra trước khi giao dịch.</string>
+    <string name="disclaimer">Giá vàng có thể thay đổi liên tục.\nChỉ mang tính tham khảo — nên kiểm tra trước khi giao dịch.</string>
 </resources>
-

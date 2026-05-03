@@ -17,6 +17,8 @@
     <string name="current_language">Current language: %1$s</string>
     <string name="settings_app_version">App version: v%1$s</string>
     <string name="updated_at">Updated at: %1$s</string>
+    <string name="disclaimer_info_icon">Show note</string>
+    <string name="disclaimer_dialog_ok">OK</string>
     <string name="press_back_again_to_exit">Press back again to exit</string>
     <string name="settings_remove_ads_title">Remove Ads</string>
     <string name="settings_remove_ads_desc">Buy once to remove banner ads from the app.</string>
@@ -27,5 +29,5 @@
     <string name="purchase_processing">Processing…</string>
     <string name="purchase_loading">Connecting to Google Play…</string>
     <string name="remove_ads_unavailable">Remove Ads is not available right now.</string>
-    <string name="disclaimer">Note: Gold prices may change at any time.\nFor reference only — verify before trading.</string>
+    <string name="disclaimer">Gold prices may change at any time.\nFor reference only — verify before trading.</string>
 </resources>

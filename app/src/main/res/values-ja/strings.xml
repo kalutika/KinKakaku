@@ -17,6 +17,8 @@
     <string name="current_language">現在の言語: %1$s</string>
     <string name="settings_app_version">アプリのバージョン: v%1$s</string>
     <string name="updated_at">価格更新日時: %1$s</string>
+    <string name="disclaimer_info_icon">注意事項を表示</string>
+    <string name="disclaimer_dialog_ok">閉じる</string>
     <string name="press_back_again_to_exit">もう一度戻るボタンを押すと終了します</string>
     <string name="settings_remove_ads_title">広告を削除</string>
     <string name="settings_remove_ads_desc">一度の購入でアプリのバナー広告を非表示にできます。</string>
@@ -27,6 +29,5 @@
     <string name="purchase_processing">処理中…</string>
     <string name="purchase_loading">Google Play に接続中…</string>
     <string name="remove_ads_unavailable">広告削除機能は現在利用できません。</string>
-    <string name="disclaimer">注意：金価格は随時変動する場合があります\n参考情報としてご利用ください。</string>
+    <string name="disclaimer">金価格は随時変動する場合があります。\n参考情報としてご利用ください。</string>
 </resources>
-
