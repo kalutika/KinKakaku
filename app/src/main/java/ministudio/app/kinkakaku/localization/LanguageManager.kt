@@ -30,11 +30,16 @@ object LanguageManager {
     }
 
     fun getSavedLanguageTag(context: Context): String {
-        return normalizeLanguageTag(
-            context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-            .getString(KEY_LANGUAGE_TAG, LANGUAGE_ENGLISH)
-            ?: LANGUAGE_ENGLISH
-        )
+        val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val saved = prefs.getString(KEY_LANGUAGE_TAG, null)
+        if (saved != null) {
+            return normalizeLanguageTag(saved)
+        }
+        // First launch: use device language if supported, otherwise fall back to English
+        val deviceLanguage = java.util.Locale.getDefault().language
+        val defaultTag = if (deviceLanguage in supportedLanguageTags) deviceLanguage else LANGUAGE_ENGLISH
+        saveLanguageTag(context, defaultTag)
+        return defaultTag
     }
 
     private fun saveLanguageTag(context: Context, languageTag: String) {
