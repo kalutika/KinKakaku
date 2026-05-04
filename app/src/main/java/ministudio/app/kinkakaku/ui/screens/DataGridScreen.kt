@@ -57,6 +57,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalContext
 import ministudio.app.kinkakaku.R
 import ministudio.app.kinkakaku.billing.BillingManager
+import ministudio.app.kinkakaku.localization.GoldNameLocalizer
+import ministudio.app.kinkakaku.localization.LanguageManager
 import ministudio.app.kinkakaku.ui.ads.AdMobBanner
 import ministudio.app.kinkakaku.shared.model.DataItem
 import ministudio.app.kinkakaku.ui.viewmodel.DataViewModel
@@ -310,6 +312,13 @@ private fun PriceRowCard(item: DataItem) {
     val leftWidth = 120.dp
     val priceWidth = 94.dp
     val priceGap = 12.dp
+    val context = LocalContext.current
+    val languageTag = LanguageManager.getSavedLanguageTag(context)
+    val localizedTitle = GoldNameLocalizer.getLocalizedName(
+        key = item.description,
+        languageTag = languageTag,
+        englishName = item.title
+    )
 
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -333,7 +342,7 @@ private fun PriceRowCard(item: DataItem) {
             ) {
                 Column(modifier = Modifier.width(leftWidth)) {
                     Text(
-                        text = item.title,
+                        text = localizedTitle,
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
                         color = MaterialTheme.colorScheme.onSurface,
