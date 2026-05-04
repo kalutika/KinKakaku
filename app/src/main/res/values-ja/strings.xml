@@ -30,4 +30,18 @@
     <string name="purchase_loading">Google Play に接続中…</string>
     <string name="remove_ads_unavailable">広告削除機能は現在利用できません。</string>
     <string name="disclaimer">金価格は随時変動する場合があります。\n参考情報としてご利用ください。</string>
+
+    <!-- 金製品名（キー順） -->
+    <string name="gold_name_bt9999ntt">バオティンミンチャウ 9999</string>
+    <string name="gold_name_btsjc">バオティンミンチャウ</string>
+    <string name="gold_name_dohcml">DOJIホーチミン</string>
+    <string name="gold_name_dohnl">DOJIハノイ</string>
+    <string name="gold_name_dojinhtv">DOJIジュエリー</string>
+    <string name="gold_name_pqhn24ntt">PNJ 24K</string>
+    <string name="gold_name_pqhnvm">PNJハノイ</string>
+    <string name="gold_name_sj9999">SJCリング金</string>
+    <string name="gold_name_sjl1l10">SJC 9999金</string>
+    <string name="gold_name_viettinmsjc">ビエティン SJC</string>
+    <string name="gold_name_vngsjc">SJC金</string>
+    <string name="gold_name_xauusd">国際金価格 (XAU/USD)</string>
 </resources>

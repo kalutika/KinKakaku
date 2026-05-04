@@ -30,4 +30,18 @@
     <string name="purchase_loading">Đang kết nối với Google Play…</string>
     <string name="remove_ads_unavailable">Chức năng tắt quảng cáo hiện không khả dụng.</string>
     <string name="disclaimer">Giá vàng có thể thay đổi liên tục.\nChỉ mang tính tham khảo — nên kiểm tra trước khi giao dịch.</string>
+
+    <!-- Tên sản phẩm vàng (sắp xếp theo key) -->
+    <string name="gold_name_bt9999ntt">Bảo Tín Minh Châu 9999</string>
+    <string name="gold_name_btsjc">Bảo Tín Minh Châu</string>
+    <string name="gold_name_dohcml">DOJI HCM</string>
+    <string name="gold_name_dohnl">DOJI Hà Nội</string>
+    <string name="gold_name_dojinhtv">DOJI Nữ Trang</string>
+    <string name="gold_name_pqhn24ntt">PNJ 24K</string>
+    <string name="gold_name_pqhnvm">PNJ Hà Nội</string>
+    <string name="gold_name_sj9999">Vàng Nhẫn SJC</string>
+    <string name="gold_name_sjl1l10">Vàng 9999 SJC</string>
+    <string name="gold_name_viettinmsjc">Viettin SJC</string>
+    <string name="gold_name_vngsjc">Vàng SJC</string>
+    <string name="gold_name_xauusd">Vàng Thế Giới (XAU/USD)</string>
 </resources>

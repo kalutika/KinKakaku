@@ -58,7 +58,6 @@ import androidx.compose.ui.platform.LocalContext
 import ministudio.app.kinkakaku.R
 import ministudio.app.kinkakaku.billing.BillingManager
 import ministudio.app.kinkakaku.localization.GoldNameLocalizer
-import ministudio.app.kinkakaku.localization.LanguageManager
 import ministudio.app.kinkakaku.ui.ads.AdMobBanner
 import ministudio.app.kinkakaku.shared.model.DataItem
 import ministudio.app.kinkakaku.ui.viewmodel.DataViewModel
@@ -234,6 +233,13 @@ private fun PriceListContent(
         return
     }
 
+    val context = LocalContext.current
+    val sortedData = remember(data, context.resources.configuration.locales[0]) {
+        data.sortedBy { item ->
+            GoldNameLocalizer.getLocalizedName(context, item.description, item.title)
+        }
+    }
+
     val pullRefreshState = rememberPullRefreshState(
         refreshing = refreshing,
         onRefresh = onRefresh
@@ -251,7 +257,7 @@ private fun PriceListContent(
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             items(
-                items = data,
+                items = sortedData,
                 key = { it.id },
                 contentType = { "price_row" }
             ) { item ->
@@ -313,10 +319,9 @@ private fun PriceRowCard(item: DataItem) {
     val priceWidth = 94.dp
     val priceGap = 12.dp
     val context = LocalContext.current
-    val languageTag = LanguageManager.getSavedLanguageTag(context)
     val localizedTitle = GoldNameLocalizer.getLocalizedName(
+        context = context,
         key = item.description,
-        languageTag = languageTag,
         englishName = item.title
     )
 

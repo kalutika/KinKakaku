@@ -30,4 +30,18 @@
     <string name="purchase_loading">Connecting to Google Play…</string>
     <string name="remove_ads_unavailable">Remove Ads is not available right now.</string>
     <string name="disclaimer">Gold prices may change at any time.\nFor reference only — verify before trading.</string>
+
+    <!-- Gold product names (sorted by key) -->
+    <string name="gold_name_bt9999ntt">Bao Tin Minh Chau 9999</string>
+    <string name="gold_name_btsjc">Bao Tin Minh Chau SJC</string>
+    <string name="gold_name_dohcml">DOJI Ho Chi Minh</string>
+    <string name="gold_name_dohnl">DOJI Hanoi</string>
+    <string name="gold_name_dojinhtv">DOJI Jewelry</string>
+    <string name="gold_name_pqhn24ntt">PNJ 24K</string>
+    <string name="gold_name_pqhnvm">PNJ Hanoi</string>
+    <string name="gold_name_sj9999">SJC Ring Gold</string>
+    <string name="gold_name_sjl1l10">SJC 9999 Gold</string>
+    <string name="gold_name_viettinmsjc">Viettin SJC</string>
+    <string name="gold_name_vngsjc">SJC Gold</string>
+    <string name="gold_name_xauusd">World Gold (XAU/USD)</string>
 </resources>
